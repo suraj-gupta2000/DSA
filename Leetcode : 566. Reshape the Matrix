@@ -1,0 +1,49 @@
+CPP :: Time: O(n*m) Space: O(r*c) ->Two Traversal
+
+class Solution {
+public:
+    vector<vector<int>> matrixReshape(vector<vector<int>>& mat, int r, int c) {
+        int m=mat.size(),n=mat[0].size();
+        if(m*n!=r*c)
+            return mat;
+        if(m==r and n==c)
+            return mat;
+        vector<int> v;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                v.push_back(mat[i][j]);
+            }
+        }
+        vector<vector<int>> res;
+        int k=0;
+        for(int i=0;i<r;i++){
+            vector<int> vec;
+            for(int j=0;j<c;j++){
+                vec.push_back(v[k]);
+                k++;
+            }
+            res.push_back(vec);
+        }
+        return res;
+    }
+};
+
+->One Traversal Time: O(r*c)  Space: O(1)
+
+class Solution {
+public:
+    vector<vector<int>> matrixReshape(vector<vector<int>>& mat, int r, int c) {
+        int m=size(mat),n=size(mat[0]);
+        if(m*n!=r*c)
+            return mat;
+        if(m==r and n==c)
+            return mat;
+        vector<vector<int>> res(r,vector<int>(c));
+        for(int i=0;i<m*n;i++){
+            res[i/c][i%c]=mat[i/n][i%n];
+        }
+        return res;
+    }
+};
+
+

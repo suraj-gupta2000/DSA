@@ -1,0 +1,28 @@
+CPP solution : Time: O(n)
+
+class Solution {
+public:
+    string mergeAlternately(string w1, string w2) {
+        int n1=size(w1),n2=size(w2);
+        int i=0,j=0;
+        string res="";
+        while(i<n1 and j<n2){
+            res+=w1[i];
+            res+=w2[j];
+            i++;j++;
+        }
+        if(i!=n1)
+            while(i<n1)
+            {
+                res+=w1[i];i++;
+            }
+           // res+=w1.substr(i);
+        else  if(j!=n2)
+            while(j<n2)
+            {
+                res+=w2[j];j++;
+            }
+            //res+=w2.substr(j);
+        return res;
+    }
+};

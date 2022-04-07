@@ -1,0 +1,59 @@
+CPP solution::
+-->using map Time: O(n) Space: O(n)
+
+class Solution {
+public:
+    char findTheDifference(string s, string t) {
+        map<char,int> mp;
+        int i=0,j=0;
+        char res;
+        while(i<t.size()){
+            mp[t[i]]++;i++;
+        }
+        while(j<s.size()){
+            mp[s[j]]--;j++;
+        }
+        for(auto x : mp){
+            if(x.second!=0){
+                res= x.first;break;
+            }
+        }
+        return res;
+    }
+};
+
+-->using sort Time: O(nlogn) Space: O(1)
+
+class Solution {
+public:
+    char findTheDifference(string s, string t) {
+        sort(begin(s),end(s));
+        sort(begin(t),end(t));
+        int i=0,n=size(s);
+        while(i<n){
+            if(s[i]!=t[i])
+                return t[i];
+            i++;
+        }
+        return t[n];
+    }
+};
+
+-->using xor  Time: O(n)  Space: O(1)
+
+class Solution {
+public:
+    char findTheDifference(string s, string t) {
+        int n=s.size(),i=0;
+        char res;
+        while(i<n){
+           res^=s[i];
+            res^=t[i];
+            i++;
+        }
+        res^=t[n];
+        return res;
+    }
+};
+
+-->similarly using sum

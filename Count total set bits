@@ -8,3 +8,23 @@
         }
         return res;
     }
+    
+--> method 2:: Time: O(n)
+
+int fun(int n){
+       int res=1,ans=0;
+       while(res<=n){
+           res*=2;
+           ans++;
+       }
+       return ans-1;
+   }
+   
+    int countSetBits(int n)
+    {
+        if(n==0)
+        return 0;
+        int x=fun(n);
+        int res=x*(pow(2,x-1)) + (n-(pow(2,x))) + 1 + countSetBits(n-(pow(2,x)));
+        return res;
+    }

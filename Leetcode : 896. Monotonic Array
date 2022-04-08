@@ -1,0 +1,25 @@
+Time: O(n) Space: O(1)
+
+class Solution {
+public:
+    bool isMonotonic(vector<int>& nums) {
+        int n=nums.size();
+        if(nums[0]<=nums[n-1]){
+            int i=0;
+            while(i<n-1){
+                if(nums[i]>nums[i+1])
+                    return false;
+                i++;
+            }
+            return true;
+        }else{
+            int i=0;
+            while(i<n-1){
+                if(nums[i]<nums[i+1])
+                    return false;
+                i++;
+            }
+            return true;
+        }
+    }
+};

@@ -1,0 +1,13 @@
+Time : O(n)   Space: O(1)
+
+class Solution {
+public:
+    int strStr(string h, string n) {
+        if(n=="")
+            return 0;
+       int res= h.find(n);
+        if(res!=string::npos)
+            return res;
+        return -1;
+    }
+};

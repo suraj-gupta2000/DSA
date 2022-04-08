@@ -1,0 +1,40 @@
+--> method 1:: using vector (TLE)
+
+class KthLargest {
+public:
+    int k;
+    vector<int> nums;
+    KthLargest(int k, vector<int>& nums) {
+        this->k=k;
+        this->nums=nums;
+    }
+    
+    int add(int val) {
+        this->nums.push_back(val);
+        sort(begin(nums),end(nums));
+        return nums[nums.size()-k];
+    }
+};
+
+--> method 2 :: using min-heap
+
+class KthLargest {
+public:
+    int k;
+    priority_queue<int, vector<int>, greater<int> > pq;
+    KthLargest(int k, vector<int>& nums) {
+        this->k=k;
+        for(int x:nums){
+            pq.push(x);
+            if(pq.size()>k)
+                pq.pop();
+        }
+    }
+    
+    int add(int val) {
+        pq.push(val);
+        if(size(pq)>k)
+            pq.pop();
+        return pq.top();
+    }
+};

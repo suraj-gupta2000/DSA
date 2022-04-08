@@ -1,0 +1,10 @@
+-->  method 1  (TLE) Time: O(n*n)
+
+ int countSetBits(int n)
+    {
+        int res=0;
+        for(int i=1;i<=n;i++){
+            res+=__builtin_popcount(i);
+        }
+        return res;
+    }

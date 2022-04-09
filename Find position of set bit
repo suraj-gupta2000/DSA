@@ -1,0 +1,30 @@
+--> method 1 Time: O(log n)
+
+int findPosition(int N) {
+        // code here
+        if(N==0)
+        return -1;
+        if(!(N & (N-1))){
+            int x=0;
+            while((1<<x)!=N){
+                x++;
+            }
+            return x+1;
+        }else{
+            return -1;
+        }
+    }
+    
+--> mrthod 2
+
+int findPosition(int N) {
+        // code here
+        if(N==0)
+        return -1;
+        if(!(N & (N-1))){
+            int k=log(N)/log(2);
+            return k+1;
+        }else{
+            return -1;
+        }
+    }

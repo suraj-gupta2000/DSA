@@ -1,0 +1,41 @@
+Time: O(log n)
+
+
+class Solution {
+public:
+    TreeNode *getSuccessor(TreeNode *curr){
+        curr=curr->right;
+        while(curr!=nullptr and curr->left!=nullptr){
+            curr=curr->left;
+        }
+        return curr;
+    }
+    
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if(!root)
+            return nullptr;
+        if(root->val>key)
+            root->left=deleteNode(root->left,key);
+        else if(root->val < key)
+            root->right=deleteNode(root->right,key);
+        else{
+            if(root->left==nullptr){
+                TreeNode *temp=root->right;
+                delete root;
+                return temp;
+            }
+            else if(root->right==nullptr){
+                TreeNode *temp=root->left;
+                delete root;
+                return temp;
+            }
+            else{
+                TreeNode *temp=getSuccessor(root);
+                root->val=temp->val;
+                root->right=deleteNode(root->right,temp->val);
+            }
+            
+        }
+        return root;
+    }
+};

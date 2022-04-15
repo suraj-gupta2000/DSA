@@ -1,0 +1,50 @@
+Time: O(n*n)
+
+class Solution{
+    public:
+    //Function to check whether a binary tree is balanced or not.
+    int height(Node *root){
+        if(!root)
+        return 0;
+        return 1+max(height(root->left),height(root->right));
+    }
+    bool isBalanced(Node *root)
+    {
+        if(!root)
+        return true;
+        int lh=height(root->left);
+        int rh=height(root->right);
+        return (abs(lh-rh)<=1 and
+                isBalanced(root->left) and
+                isBalanced(root->right));
+    }
+};
+
+Time: O(n)
+
+class Solution{
+    public:
+    //function to return height of tree if tree is balanced otherwise return -1
+    int fun(Node *root){
+        if(!root)
+        return 0;
+        int lh=fun(root->left);
+        if(lh==-1)
+        return -1;
+        int rh=fun(root->right);
+        if(rh==-1)
+        return -1;
+        if(abs(lh-rh)>1)
+        return -1;
+        else
+        return max(lh,rh)+1;
+    }
+    //Function to check whether a binary tree is balanced or not.
+    bool isBalanced(Node *root)
+    {
+        int res=fun(root);
+        if(res==-1)
+        return false;
+        return true;
+    }
+};

@@ -1,0 +1,70 @@
+Time: O(2*n + n*logn)
+Space: O(n)
+
+class Solution {
+public:
+    int i=0;
+    void inorder(TreeNode* root,vector<int> &v){
+        if(!root)
+            return;
+        inorder(root->left,v);
+        v.push_back(root->val);
+        inorder(root->right,v);
+    }
+    
+    void fun(TreeNode* root,vector<int> &v){
+        if(!root)
+            return;
+        fun(root->left,v);
+        if(v[i]!=root->val){
+            root->val=v[i];
+        }
+        i++;
+        fun(root->right,v);
+    }
+    
+    void recoverTree(TreeNode* root) {
+        vector<int> v;
+        inorder(root,v);
+        sort(begin(v),end(v));
+        TreeNode *curr=root;
+        fun(root,v);
+        
+    }
+};
+
+Approach 2:::::
+Time: O(n)
+Space: O(1)
+
+class Solution {
+    private:
+    TreeNode* first,*prev,*middle,*last;
+    
+    void inorder(TreeNode* root){
+        if(!root)
+            return;
+        inorder(root->left);
+        if(prev!=nullptr and (root->val<prev->val)){
+            if(first==nullptr){
+                first=prev;
+                middle=root;
+            }
+            else
+                last=root;
+        }
+        prev=root;
+        inorder(root->right);
+    }
+    
+public:
+    void recoverTree(TreeNode* root) {
+        first=middle=last=NULL;
+        prev=new TreeNode(INT_MIN);
+        inorder(root);
+        if(first and last)
+            swap(first->val,last->val);
+        else if(first and middle)
+            swap(first->val,middle->val);
+    }
+};

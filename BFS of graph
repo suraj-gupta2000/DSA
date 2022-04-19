@@ -1,0 +1,25 @@
+Time: O(n)
+
+public:
+  void bfs(vector<int> adj[],int s,vector<int> &res,vector<bool> &t){
+      queue<int> q;
+      t[s]=true;
+      q.push(s);
+      while(!q.empty()){
+          int u=q.front();q.pop();
+          res.push_back(u);
+          for(int v: adj[u]){
+              if(t[v]==false){
+                  t[v]=true;
+                  q.push(v);
+              }
+          }
+      }
+  }
+    // Function to return Breadth First Traversal of given graph.
+    vector<int> bfsOfGraph(int V, vector<int> adj[]) {
+        vector<int> res;
+        vector<bool> t(V,false);
+        bfs(adj,0,res,t);    
+        return res;
+    }

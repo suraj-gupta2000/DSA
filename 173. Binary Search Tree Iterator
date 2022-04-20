@@ -1,0 +1,61 @@
+Time: O(n)
+Space: O(n)
+
+
+class BSTIterator {
+public:
+    vector<int> v;
+    int i;
+    
+    void fun(TreeNode* root,vector<int> &v){
+        if(!root)
+            return;
+        fun(root->left,v);
+        v.push_back(root->val);
+        fun(root->right,v);
+    }
+    BSTIterator(TreeNode* root) {
+        
+        fun(root,v);
+         i=0;
+    }
+    
+    int next() {
+        int x= v[i];i++;
+        return x;
+    }
+    
+    bool hasNext() {
+        return i<v.size() ;
+    }
+};
+
+Time: O(1)
+Space: O(h)
+
+class BSTIterator {
+public:
+    stack<TreeNode*> s;
+    
+    void pushall(TreeNode* root){
+        while(root){
+            s.push(root);
+            root=root->left;
+        }
+    }
+    
+    BSTIterator(TreeNode* root) {
+        pushall(root);
+    }
+    
+    int next() {
+        TreeNode* temp=s.top();s.pop();
+        pushall(temp->right);
+        return temp->val;
+    }
+    
+    bool hasNext() {
+        return !s.empty();
+    }
+    
+};

@@ -1,0 +1,27 @@
+Time: O(1)
+Space: O(1000000)
+
+class MyHashSet {
+public:
+    int n;
+    vector<bool> v;
+    
+    MyHashSet() {
+        n=1000000;
+       for(int i=0;i<=n;i++){
+           v.push_back(false);
+       } 
+    }
+    
+    void add(int key) {
+        v[key]=true;
+    }
+    
+    void remove(int key) {
+        v[key]=false;
+    }
+    
+    bool contains(int key) {
+        return v[key];
+    }
+};

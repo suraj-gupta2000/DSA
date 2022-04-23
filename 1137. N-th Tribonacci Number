@@ -1,0 +1,19 @@
+Time: O(n)
+
+class Solution {
+public:
+    int tribonacci(int n) {
+        if(n==0)
+            return 0;
+        else if(n==1 or n==2)
+            return 1;
+        vector<int> v(n+1,0);
+        v[0]=0;v[1]=1;v[2]=1;
+        int i=3;
+        while(i<=n){
+            v[i]=v[i-1]+v[i-2]+v[i-3];
+            i++;
+        }
+        return v[n];
+    }
+};

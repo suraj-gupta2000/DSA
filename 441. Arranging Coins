@@ -1,0 +1,31 @@
+---> using Binary search it overflows 
+class Solution {
+public:
+    int arrangeCoins(int n) {
+        if(n==1)
+            return 1;
+        if(n==3)
+            return 2;
+        long long unsigned int N=n;
+        long long unsigned int l=1,h=n/2;
+        long long unsigned int ans;
+        while(l<=h){
+            int m=l+(h-l)/2;
+           // long long unsigned int t=m*(m+1)/(2*n);  
+            if(m/2 == N/(m+1))
+                return m;
+            else if(m < (2*N)/(m+1)){
+                ans=m;
+                l=m+1;
+            }
+            else{
+                h=m-1;
+            }
+        }
+        return ans;
+    }
+};
+
+--> using math
+x*(x+1)/2=n
+x^2

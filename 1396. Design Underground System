@@ -1,0 +1,29 @@
+Time: O(1)
+
+class UndergroundSystem {
+public:
+    unordered_map<int,pair<string,int> >cim;
+    unordered_map<string,pair<int,int> >com;
+    
+    UndergroundSystem() {
+        
+    }
+    
+    void checkIn(int id, string stationName, int t) {
+        cim[id]={stationName,t};
+    }
+    
+    void checkOut(int id, string stationName, int t) {
+        auto temp=cim[id];
+        string r=temp.first + " to " + stationName;
+        com[r].first+=t-temp.second;
+        com[r].second+=1;
+    }
+    
+    double getAverageTime(string startStation, string endStation) {
+        string route=startStation+" to "+endStation;
+        double time=com[route].first;
+        double count=com[route].second;
+        return time/count;
+    }
+};

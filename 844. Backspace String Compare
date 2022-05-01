@@ -1,0 +1,70 @@
+Time: O(n)   Space: O(n)
+
+
+class Solution {
+public:
+    bool backspaceCompare(string s, string t) {
+        int n1=s.size(),n2=t.size();
+        stack<char> st;
+        int i=0;
+        while(i<n1){
+            if(s[i]!='#')
+                st.push(s[i]);
+            else{
+                if(st.empty()==false)
+                    st.pop();
+            }
+    
+            i++;
+        }
+        s="";
+        while(!st.empty()){
+            s+=st.top();st.pop();
+        }
+        i=0;
+        while(i<n2){
+            if(t[i]!='#')
+                st.push(t[i]);
+            else{
+                if(st.empty()==false)
+                    st.pop();
+            }
+
+            i++;
+        }
+        t="";
+        while(!st.empty()){
+            t+=st.top();st.pop();
+        }
+        return s==t;
+    }
+};
+
+Time: O(n)   Space: O(1)
+
+class Solution {
+public:
+    bool backspaceCompare(string s, string t) {
+        int n1=s.size(),n2=t.size();
+        int i=n1-1,j=n2-1;
+        int sk1=0,sk2=0;
+        while(i>=0 or j>=0){
+            while(i>=0){
+                if(s[i]=='#'){ sk1++;i--; }
+                else if(sk1>0){ sk1--;i--; }
+                else break;
+            }
+            while(j>=0){
+                if(t[j]=='#'){ sk2++;j--; }
+                else if(sk2>0){ sk2--;j--; }
+                else break;
+            }
+            if(i>=0 and j>=0 and s[i]!=t[j])
+                return false;
+            if((i>=0) != (j>=0))
+                return false;
+            i--;j--;
+        }
+        return true;
+    }
+};

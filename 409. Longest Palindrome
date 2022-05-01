@@ -1,0 +1,25 @@
+Time: O(n)
+
+class Solution {
+public:
+    int longestPalindrome(string s) {
+       map<char,int> m;
+        for(int i=0;i<s.size();i++){
+            m[s[i]]++;
+        }
+        int res=0,mo=0;
+        for(auto x: m){
+            if(x.second%2==0){
+                res+=x.second;
+            }else{
+                if(mo==0)
+                    mo=x.second;
+                else{
+                    if(mo<=x.second){ res+=mo-1;mo=x.second; }
+                    else{ res+=x.second-1; }
+                }
+            }
+        }
+        return res+mo;
+    }
+};

@@ -1,0 +1,69 @@
+------> using two queue
+
+class MyStack {
+public:
+     queue<int> q;
+     queue<int> q2;
+    MyStack() {
+        
+    }
+    
+    void push(int x) {
+        q.push(x);
+    }
+    
+    int pop() {
+        while(q.size()>1){
+            int t=q.front();q.pop();
+            q2.push(t);
+        }
+        int res=q.front();
+        q.pop();
+        queue<int> temp=q;
+        q=q2;
+        q2=temp;
+        return res;
+    }
+    
+    int top() {
+        return q.back();
+    }
+    
+    bool empty() {
+        return q.empty();
+    }
+};
+
+method 2: using only one queue
+ 
+ class MyStack {
+public:
+    queue<int> q;
+    MyStack() {
+        
+    }
+    
+    void push(int x) {
+        q.push(x);
+        int n=q.size();
+        while(n>1){
+            int t=q.front();q.pop();
+            q.push(t);
+            n--;
+        }
+    }
+    
+    int pop() {
+        int res=q.front();
+        q.pop();
+        return res;
+    }
+    
+    int top() {
+        return q.front();
+    }
+    
+    bool empty() {
+     return q.empty();   
+    }
+};

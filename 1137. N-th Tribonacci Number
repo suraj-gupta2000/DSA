@@ -1,4 +1,4 @@
-Time: O(n)
+Time: O(3^n) Space: O(n)  Using Recursion (TLE)
 
 class Solution {
 public:
@@ -7,13 +7,45 @@ public:
             return 0;
         else if(n==1 or n==2)
             return 1;
-        vector<int> v(n+1,0);
-        v[0]=0;v[1]=1;v[2]=1;
-        int i=3;
-        while(i<=n){
-            v[i]=v[i-1]+v[i-2]+v[i-3];
-            i++;
+        return tribonacci(n-1)+tribonacci(n-2)+tribonacci(n-3);
+    }
+};
+
+
+Time: O(n)  Space: O(n) Using DP
+
+class Solution {
+public:
+    int tribonacci(int n) {
+        if(n==0)
+            return 0;
+        else if(n==1 or n==2)
+            return 1;
+        
+            vector<int> dp(n+1);
+            dp[0]=0;dp[1]=1;dp[2]=1;
+            for(int i=3;i<n+1;i++){
+                dp[i]=dp[i-1]+dp[i-2]+dp[i-3];
+            }
+        return dp[n];
+    }
+};
+
+
+Time: O(n) Space: O(1)
+
+class Solution {
+public:
+    int tribonacci(int n) {
+        if(n==0)
+            return 0;
+        else if(n==1 or n==2)
+            return 1;
+        int a=0,b=1,c=1,d=0;
+        for(int i=3;i<=n;i++){
+            d=a+b+c;
+            a=b;b=c;c=d;
         }
-        return v[n];
+        return d;
     }
 };

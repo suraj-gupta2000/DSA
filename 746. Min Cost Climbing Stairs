@@ -1,0 +1,18 @@
+Time: O(n)  Space: O(n) using DP
+
+class Solution {
+public:
+    int minCostClimbingStairs(vector<int>& cost) {
+        int n=cost.size();
+        vector<int> dp(n+1);
+        for(int i=2;i<=n;i++){
+            int jos=dp[i-1]+cost[i-1];
+            int jts=dp[i-2]+cost[i-2];
+            dp[i]=min(jos,jts);
+        }
+        
+        return dp[n];
+    }
+};
+
+ 

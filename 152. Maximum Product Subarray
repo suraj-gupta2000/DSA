@@ -1,0 +1,17 @@
+Time: O(n)   Space: O(1)
+
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int n=nums.size();
+        int res=nums[0],maxend=nums[0];
+        for(int i=1,imax=res,imin=res;i<n;i++){
+            if(nums[i]<0)
+                swap(imax,imin);
+            imax=max(imax*nums[i],nums[i]);
+            imin=min(imin*nums[i],nums[i]);
+            res=max(res,imax);
+        }
+        return res;
+    }
+};

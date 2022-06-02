@@ -1,0 +1,49 @@
+Time: O(n^2)  Space: O(1)
+
+class Solution {
+public:
+    int maxSubarraySumCircular(vector<int>& nums) {
+        int res=nums[0];
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            int curr_max=nums[i];
+            int curr_sum=nums[i];
+            for(int j=1;j<n;j++){
+                int ind=(i+j)%n;
+                curr_sum+=nums[ind];
+                curr_max=max(curr_max,curr_sum);
+            }
+            res=max(res,curr_max);
+        }
+        return res;
+    }
+};
+
+Time: O(n)  Space: O(1)
+class Solution {
+public:
+    int maxSub(vector<int>& nums){
+        int n=nums.size();
+        int res,maxend;
+        res=maxend=nums[0];
+        for(int i=1;i<n;i++){
+            maxend=max(nums[i],maxend+nums[i]);
+            res=max(res,maxend);
+        }
+        return res;
+    }
+    
+    int maxSubarraySumCircular(vector<int>& nums) {
+        int n=nums.size();
+        int max_n=maxSub(nums);
+        if(max_n<0)
+            return max_n;
+        int sum=0;
+        for(int i=0;i<n;i++){
+            sum+=nums[i];
+            nums[i]=-nums[i];
+        }
+        int max_c=sum+maxSub(nums);
+        return max(max_c,max_n);
+    }
+};

@@ -1,0 +1,32 @@
+Time: O(n*logn)  Space: O(1)
+
+class Solution {
+public:
+    int minMoves2(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        int n=nums.size();
+        int ind=n/2;
+        int ans=0;
+        for(int x:nums){
+            ans+=abs(nums[ind]-x);
+        }
+        return ans;
+    }
+};
+
+Time: O(n*logn)  Space: O(1)
+class Solution {
+public:
+    int minMoves2(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        int n=nums.size();
+        int ans=0,left=0,right=n-1;
+        
+        while(left<right){
+            ans+=nums[right]-nums[left];  // mid-left  + right-mid == right-left
+            left++;right--;
+        }
+        
+        return ans;
+    }
+};

@@ -1,0 +1,39 @@
+Time: O(log n)  Space: O(1)
+
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int fp=-1,lp=-1;
+        int l=0,h=nums.size()-1;
+        while(l<=h){
+            int mid=l+(h-l)/2;
+            if(nums[mid]<target)
+                l=mid+1;
+            else if(nums[mid]>target)
+                h=mid-1;
+            else{
+                if(mid==0 or nums[mid]!=nums[mid-1]){
+                    fp=mid;break;
+                }else
+                    h=mid-1;
+            }
+        }
+        if(fp==-1)
+            return {-1,-1};
+        l=fp;h=nums.size()-1;
+        while(l<=h){
+            int mid=l+(h-l)/2;
+            if(nums[mid]<target)
+                l=mid+1;
+            else if(nums[mid]>target)
+                h=mid-1;
+            else{
+                if(mid==nums.size()-1 or nums[mid]!=nums[mid+1]){
+                    lp=mid;break;
+                }else
+                    l=mid+1;
+            }
+        }
+        return {fp,lp};
+    }
+};

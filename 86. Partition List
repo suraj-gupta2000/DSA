@@ -1,0 +1,27 @@
+Time: O(n)  Space: O(n)  Two Traversal
+
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        auto temp=head;
+        vector<int> v1,v2,v3;
+        while(temp){
+            int t=temp->val;
+            if(t<x)
+                v1.push_back(t);
+            else
+                v3.push_back(t);
+            temp=temp->next;
+        }
+        temp=head;
+        while(temp){
+            for(int t:v1){
+                temp->val=t;temp=temp->next;
+            }
+             for(int t:v3){
+                temp->val=t;temp=temp->next;
+            }
+        }
+        return head;
+    }
+};

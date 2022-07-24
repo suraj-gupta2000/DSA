@@ -1,0 +1,23 @@
+Time: O(60*12)  Space: O(1)
+
+class Solution {
+public:
+    vector<string> readBinaryWatch(int t) {
+        vector<string> res;
+        if(t==0)
+            return {"0:00"};
+        for(int i=0;i<12;i++){
+            for(int j=0;j<60;j++){
+                string temp="";
+                if(__builtin_popcount(i)+__builtin_popcount(j)==t){
+                    temp+=to_string(i)+":";
+                    if(j<10)
+                        temp+="0";
+                    temp+=to_string(j);
+                    res.push_back(temp);
+                }
+            }
+        }
+        return res;
+    }
+};

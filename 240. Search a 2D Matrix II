@@ -1,0 +1,52 @@
+Time: O(n log n)  Space: O(1)
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& mat, int t) {
+        int m=mat.size(),n=mat[0].size();
+        if(m==1 and n==1){
+            if(mat[0][0]==t)
+                return true;
+            return false;
+        }else if(m==1){
+            return binary_search(mat[0].begin(),mat[0].end(),t);
+        }else if(n==1){
+            for(int i=0;i<m;i++){
+                if(mat[i][0]==t)
+                    return true;
+            }
+            return false;
+        }
+        while(m>=1 and mat[m-1][0]>t){m--;}
+        m--;
+        while(n>=1 and mat[0][n-1]>t){n--;}
+        n--;
+        if(m<0 or n<0)
+            return false;
+       
+        for(int i=0;i<=m;i++){
+            bool flag=binary_search(mat[i].begin(),mat[i].begin()+n+1,t);
+            if(flag)
+                return true;
+        }
+        return false;
+    }
+};
+
+Time: O(m+n)  Space: O(1)
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& mat, int t) {
+        int m=mat.size(),n=mat[0].size();
+        if(m==1 and n==1)
+                return (mat[0][0]==t);
+        int r=0,c=n-1;
+        while(r<m and c>=0){
+            if(mat[r][c]==t)
+                return true;
+            mat[r][c]>t ? c-- : r++;
+        }
+        return false;
+    }
+};

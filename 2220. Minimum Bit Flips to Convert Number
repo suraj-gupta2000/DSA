@@ -1,0 +1,65 @@
+Time: O(sizeof(max(s,g))  Space: O(n+m) 
+
+class Solution {
+public:
+    int minBitFlips(int s, int g) {
+        if(s==g)
+            return 0;
+        if(s<g)
+            swap(s,g);
+        vector<int> res1,res2;
+        while(s!=0){
+            res1.push_back(s&1);
+            s=s>>1;
+        }
+        while(g!=0){
+            res2.push_back(g&1);
+            g=g>>1;
+        }
+        int ans=0,i=0;
+        for(i=0; i<res2.size();i++){
+            if(res1[i]!=res2[i])
+                ans++;
+        }
+        
+        while(i<res1.size()){
+            if(res1[i]==1)
+                ans++;
+            i++;
+        }
+        return ans;
+    }
+};
+
+Time: O(log n)  Space: O(1)
+
+class Solution {
+public:
+    int minBitFlips(int s, int g) {
+        int res=0;
+        if(s==g)
+            return 0;
+        while(s or g){
+            if((s&1)!=(g&1))
+                res++;
+            s=s>>1;g=g>>1;
+        }
+        return res;
+    }
+};
+
+Time: O(log sXORg)  Space: O(1)
+
+class Solution {
+public:
+    int minBitFlips(int s, int g) {
+        int res=0;
+        int x=s^g;
+        while(x){
+            if(x&1)
+                res++;
+            x=x>>1;
+        }
+        return res;
+    }
+};

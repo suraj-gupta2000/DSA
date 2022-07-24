@@ -1,0 +1,67 @@
+-->TLE
+
+class FoodRatings {
+public:
+   
+    map<string,pair<int,string>> m1;
+    
+    FoodRatings(vector<string>& foods, vector<string>& cuisines, vector<int>& ratings) {
+        int n=foods.size();
+        for(int i=0;i<n;i++){
+            m1.insert({foods[i],{ratings[i],cuisines[i]}});
+        }
+    }
+    
+    void changeRating(string food, int newRating) {
+        m1[food].first=newRating;
+    }
+    
+    string highestRated(string cuisine) {
+        string res="";
+        int rat=-1;
+        for(auto x: m1){
+            if(x.second.second==cuisine and rat <= x.second.first){
+                if(rat < x.second.first){
+                    res=x.first;rat=x.second.first;
+                }
+                else if(rat != -1)
+                {res=min(res,x.first);}
+                else
+                {res=x.first;rat=x.second.first;}
+            }
+        }
+        return res;
+    }
+};
+
+-->Passed 1017ms
+
+class FoodRatings {
+public:
+    map<string,set<pair<int,string>>> m1; //key is cuisine
+    map<string,pair<string,int>> m2;      //key if food
+    FoodRatings(vector<string>& foods, vector<string>& cuisines, vector<int>& ratings) {
+        int n=foods.size();
+        for(int i=0;i<n;i++){
+            string f=foods[i],c=cuisines[i];
+            int r=ratings[i];
+            m1[c].insert({r,f});
+            m2[f]={c,r};
+        }
+    }
+    
+    void changeRating(string food, int newRating) {
+        string c=m2[food].first;int r=m2[food].second;
+        m1[c].erase({r,food});
+        m1[c].insert({newRating,food});
+        m2[food].second=newRating;
+    }
+    
+    string highestRated(string cuisine) {
+        auto i=(m1[cuisine].end());
+        i--;
+        int r=i->first;
+        auto it=m1[cuisine].lower_bound({r,"a"});
+        return it->second;
+    }
+};

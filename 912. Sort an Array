@@ -1,0 +1,83 @@
+Time: O(n* log n)  Space: O(n)
+
+class Solution {
+public:
+    vector<int> sortArray(vector<int>& nums) {
+        sort(begin(nums),end(nums));
+        return nums;
+    }
+};
+
+Time: O(n* Log n)  Space: O(n)
+--> Merge Sort
+
+class Solution {
+public:
+    void merge(vector<int>& nums,int l,int m,int r){
+        int n1=m-l+1,n2=r-m;
+        vector<int> a(n1),b(n2);
+        for(int i=0;i<n1;i++){
+            a[i]=nums[l+i];
+        }
+        for(int i=0;i<n2;i++){
+            b[i]=nums[m+1+i];
+        }
+        int i=0,j=0,k=0;
+        vector<int> v;
+        while(i<n1 and j<n2){
+            if(a[i]<=b[j]){
+                nums[l+k]=a[i];
+                i++;k++;
+            }
+            else {
+                nums[l+k]=b[j];
+                j++;k++;
+            }
+        }
+        while(i<n1){
+            nums[l+k]=a[i];
+            i++;k++;
+        }
+        while(j<n2){
+            nums[l+k]=b[j];
+                j++;k++;
+        }
+    }
+    
+    void fun(vector<int>& nums,int l,int r){
+        if(r>l){
+        int mid=l+(r-l)/2;
+        fun(nums,l,mid);
+        fun(nums,mid+1,r);
+        merge(nums,l,mid,r);
+        }
+    }
+    
+    vector<int> sortArray(vector<int>& nums) {
+        int l=0,r=nums.size()-1;
+        fun(nums,l,r);
+        return nums;
+    }
+};
+
+--> Time: O(n^2)  Space: O(1)  
+--> TLE Optimised BUbble Sort
+
+class Solution {
+public:
+    vector<int> sortArray(vector<int>& nums) {
+        int n=nums.size();
+        for(int i=0;i<n-1;i++){
+            bool flag=false;
+            for(int j=0;j<n-1-i;j++){
+                if(nums[j]>nums[j+1]){
+                    swap(nums[j],nums[j+1]);
+                    flag=true;
+                }
+            }
+            if(!flag)
+                break;
+        }
+        return nums;
+    }
+};

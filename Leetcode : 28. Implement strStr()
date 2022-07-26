@@ -1,4 +1,4 @@
-Time : O(n)   Space: O(1)
+Time : O(n^2)   Space: O(1)
 
 class Solution {
 public:
@@ -8,6 +8,34 @@ public:
        int res= h.find(n);
         if(res!=string::npos)
             return res;
+        return -1;
+    }
+};
+
+Time: O(n^2)  Space: O(1)
+
+class Solution {
+public:
+    int strStr(string hey, string nee) {
+        int n=hey.size(),m=nee.size();
+        if(m==0)
+            return 0;
+        if(m>n)
+            return -1;
+        
+        for(int i=0;i<n;i++){
+            if(hey[i]==nee[0]){
+                int k=i+1;
+                int j;
+                for( j=1;j<m;j++){
+                    if(hey[k]==nee[j]){k++;}
+                    else
+                        break;
+                }
+                if(j==m)
+                    return i;
+            }
+        }
         return -1;
     }
 };

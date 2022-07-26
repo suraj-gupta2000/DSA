@@ -1,0 +1,27 @@
+Time: O(n)  Space: O(1)
+
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& d) {
+        int n=d.size();
+        if(d[n-1]<9){
+            d[n-1]=d[n-1]+1;
+            return d;
+        }else{
+            int i=n-1;
+            d[i]=0;
+            i--;
+            while(i>=0 && d[i]==9){
+                d[i]=0;i--;
+            }
+            if(i==-1){
+                d.push_back(1);
+                // reverse(begin(d),end(d));
+                swap(d[0],d[n]);
+                return d;
+            }
+            d[i]=d[i]+1;
+            return d;
+        }
+    }
+};

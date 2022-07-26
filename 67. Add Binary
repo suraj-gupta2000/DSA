@@ -29,7 +29,7 @@ public:
     }
 };
 
--->   
+--> Time: O(n)  Space: O(n)  
 
 class Solution {
 public:
@@ -40,15 +40,16 @@ public:
         int carry=0;
         while(i>=0 or j>=0){
             int x,y;
-            x = i>=0 ? a[i--]-'0' : '0';
-            y = j>=0 ? b[j--]-'0' : '0';
+            x = i>=0 ? a[i--]-'0' : 0;
+            y = j>=0 ? b[j--]-'0' : 0;
             int sum=x+y+carry;
-            res+=to_string(sum%2);
+            res=to_string(sum%2)+res;
             carry=sum/2;
             }
-        if(carry)
-            res+='1';
-        reverse(begin(res),end(res));
+        if(carry>0)
+            res='1'+res;
+       // reverse(begin(res),end(res));
         return res;
     }
 };
+

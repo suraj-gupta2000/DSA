@@ -1,0 +1,54 @@
+Time: O(n)  Space: O(n+m)
+
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int n1=a.size(),n2=b.size();
+        string res="";
+        int i=n1-1,j=n2-1;
+        bool carry=false;
+        while(i>=0 or j>=0){
+            char x,y;
+            x = i>=0 ? a[i--] : '0';
+            y = j>=0 ? b[j--] : '0';
+            
+            if(x=='1' and y=='1'){
+                res+= (carry) ? '1' : '0';
+                carry=true;
+            }else if(x=='0' and y=='0'){
+                res+= (carry) ? '1' : '0';
+                carry=false;
+            }else{
+                res+= (carry) ? '0' : '1';
+            }
+        }
+        if(carry)
+            res+='1';
+        reverse(begin(res),end(res));
+        return res;
+    }
+};
+
+-->   
+
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int n1=a.size(),n2=b.size();
+        string res="";
+        int i=n1-1,j=n2-1;
+        int carry=0;
+        while(i>=0 or j>=0){
+            int x,y;
+            x = i>=0 ? a[i--]-'0' : '0';
+            y = j>=0 ? b[j--]-'0' : '0';
+            int sum=x+y+carry;
+            res+=to_string(sum%2);
+            carry=sum/2;
+            }
+        if(carry)
+            res+='1';
+        reverse(begin(res),end(res));
+        return res;
+    }
+};

@@ -1,0 +1,64 @@
+Time : O(n*2^n)  Space : O(n*2^n)
+-->Cascading
+
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> subs = {{}};
+        for (int num : nums) {
+            int n = subs.size();
+            for (int i = 0; i < n; i++) {
+                subs.push_back(subs[i]); 
+                subs.back().push_back(num);
+            }
+        }
+        return subs;
+    }
+}; 
+
+Time: O(n*2^n)  Space: O(n)
+--> BackTracking
+
+class Solution {
+public:
+    vector<vector<int>> res;
+    void fun(vector<int>& nums,vector<int> v,int i,int n){
+        if(i==n){
+            res.push_back(v);
+            return;
+        }
+        v.push_back(nums[i]);
+        fun(nums,v,i+1,n);
+        
+        v.pop_back();
+        fun(nums,v,i+1,n);
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<int> v;
+        int n=nums.size();
+        fun(nums,v,0,n);
+        return res;
+    }
+};
+
+Time: O(n*2^n)  Space : O(n*2^n)
+--> Bit Manipulation
+
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        int n=nums.size();
+        int x=(1<<n);
+        int i=0;
+        vector<vector<int>> res;
+        while(i<x){
+            vector<int> v;
+            for(int j=0;j<n;j++){
+                if(i & (1<<j) )
+                    v.push_back(nums[j]);
+            }
+         res.push_back(v);i++;   
+        }
+        return res;
+    }
+};

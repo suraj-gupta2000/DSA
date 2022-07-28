@@ -46,3 +46,23 @@ public:
         return true;
     }
 };
+
+Time: O(n) Space: O(n)
+--> Using Map
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        int n=s.size(),k=t.size();
+        if(n!=k)
+            return false;
+        map<char,int> m;
+        for(int i=0;i<n;i++)
+            m[s[i]]++,m[t[i]]--;
+        for(auto x:m){
+            if(x.second!=0)
+                return false;
+        }
+        return true;
+    }
+};

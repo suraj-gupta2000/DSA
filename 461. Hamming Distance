@@ -1,0 +1,40 @@
+Time: O(log max(x,y))  Space: O(1)
+
+class Solution {
+public:
+    int hammingDistance(int x, int y) {
+        int res=0;
+        while(x or y){
+            int a=x&1,b=y&1;
+            if(a^b)
+                res++;
+            x=x>>1;
+            y=y>>1;
+        }
+        return res;
+    }
+};
+
+Time: O(log(x^y))  Space: O(1)
+
+class Solution {
+public:
+    int hammingDistance(int x, int y) {
+        int t=x^y,res=0;
+        while(t){
+            if(t&1)
+                res++;
+            t=t>>1;
+        }
+        return res;
+    }
+};
+
+--> One Liner
+
+class Solution {
+public:
+    int hammingDistance(int x, int y) {
+        return __builtin_popcount(x^y);
+    }
+};

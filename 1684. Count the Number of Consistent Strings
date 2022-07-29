@@ -1,0 +1,62 @@
+Time: O(n^3)  Space: O(1)
+
+class Solution {
+public:
+    int countConsistentStrings(string al, vector<string>& w) {
+        int res=0;
+        for(auto x: w){
+            bool flag=true;
+            for(int i=0;i<size(x);i++){
+                if(find(begin(al),end(al),x[i])==end(al))
+                { flag=false;break;}
+            }
+            if(flag)
+                res++;
+        }
+        return res;
+    }
+};
+
+Time: O(n*N*Log(size(al)))  Space: O(size(al))
+
+class Solution {
+public:
+    int countConsistentStrings(string al, vector<string>& w) {
+        map<char,int> m;
+        int res=0;
+        for(char x: al){
+            m[x]++;
+        }
+        for(auto x:w){
+            bool flag=true;
+            for(auto y:x){
+                if(m.find(y)==m.end()){
+                    flag=false;break;
+                }
+            }
+            if(flag)
+                res++;
+        }
+        return res;
+    }
+};
+
+Time: O(n*N)  Space: O(123)
+
+class Solution {
+public:
+    int countConsistentStrings(string al, vector<string>& w) {
+        int res=w.size();
+        vector<bool> v(123);      //z==122
+        for(auto x: al)
+            v[x]=true;
+        for(auto x: w){
+            for(auto y:x){
+                if(!v[y]){
+                    res--;break;
+                }
+            }
+        }
+        return res;
+    }
+};

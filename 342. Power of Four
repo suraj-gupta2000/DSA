@@ -1,0 +1,64 @@
+Time: O(Log4(n))  Space: O(Log4(n))
+--> Recursion
+
+class Solution {
+public:
+    bool isPowerOfFour(int n) {
+        if(n==0)
+            return false;
+        if(n==1)
+            return true;
+        if(n%2!=0)
+            return false;
+        return n%4==0 && isPowerOfFour(n/4);
+    }
+};
+
+Time: O(Log4(n))  Space: O(1)
+--> Iterative
+
+class Solution {
+public:
+    bool isPowerOfFour(int n) {
+        if(n<=0)
+            return false;
+        while(n>0){
+            if(n==1)
+                return true;
+            else if(n&1)
+                return false;
+            else if(n%4!=0)
+                return false;
+            n/=4;
+        }
+        return false;
+    }
+};
+
+Time: O(Log2(n))  Space: O(1)
+--> Bit Manipulation, Count number of 0 after 1
+
+class Solution {
+public:
+    bool isPowerOfFour(int n) {
+        if(n<=0)
+            return false;
+        if(n&(n-1))
+            return false;
+        int c=log2(n);
+        if(c&1)
+            return false;
+        return true;
+    }
+};
+
+Time: O(1)   Space: O(1)
+-->Bit Manipulation, number must be power of 2 and n-1 must be divisible by 3  eg: 3,15,63,255 ...
+
+class Solution {
+public:
+    bool isPowerOfFour(int n) {
+        return n>0 and !(n&(n-1)) and (n-1)%3==0 ;
+    }
+};
+

@@ -1,0 +1,44 @@
+Time: O(n^2)  Space: O(n*n)
+
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& mat, int k) {
+        int n=mat.size();
+        vector<int> v(n*n);
+        int t=0;
+       for(int i=0;i<n;i++){
+           for(int j=0;j<n;j++)
+               v[t]=mat[i][j],t++;
+       }
+        sort(begin(v),end(v));
+        return v[k-1];
+    }
+};
+
+Time: O(n*Log n)  Space: O(1)
+class Solution {
+public:
+    int n;
+    int kthSmallest(vector<vector<int>>& mat, int k) {
+         n=mat.size();
+        int left=mat[0][0],right=mat[n-1][n-1],mid;
+        int res=-1;
+        while(left<=right){
+            mid=(left+right) >> 1;
+            if(fun(mat,mid)>=k){res=mid;right=mid-1;}
+            else
+                left=mid+1;
+        }
+        return res;
+    }
+    
+    int fun(vector<vector<int>>& mat,int m){
+        int cnt=0,c=n-1;
+        for(int r=0;r<n;r++){
+            while(c>=0 and mat[r][c]>m)
+                c--;
+            cnt+=(c+1);
+        }
+        return cnt;
+    }
+};

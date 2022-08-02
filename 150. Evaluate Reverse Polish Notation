@@ -1,0 +1,33 @@
+Time: O(n)  Space: O(n)
+
+class Solution {
+public:
+    int evalRPN(vector<string>& t) {
+        int n=size(t);
+        if(n==1)
+            return stoi(t[0]);
+        stack<int> s;
+        s.push(stoi(t[0]));
+        s.push(stoi(t[1]));
+        int i=2,x,y,res;
+        while(i<n){
+            if(t[i]=="+" or t[i]=="-" or t[i]=="*" or t[i]=="/"){
+                x=s.top();s.pop();
+                y=s.top();s.pop();
+                if(t[i]=="+"){ 
+                    res=y+x;
+                }else if(t[i]=="-"){
+                    res=y-x;
+                }else if(t[i]=="*"){
+                    res=y*x;
+                }else
+                    res=y/x;
+                s.push((res));
+                }else{
+                s.push(stoi(t[i]));
+            }
+            i++;
+        }
+        return s.top();
+    }
+};

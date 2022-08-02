@@ -1,0 +1,27 @@
+Time: O(2^n)  Space: O(2^n)
+
+class Solution {
+public:
+    void fun(vector<int>& map,vector<int>& ds,vector<int>& nums,vector<vector<int>>& res){
+        if(ds.size()==nums.size()){
+            res.push_back(ds);
+            return;
+        }
+        for(int i=0;i<size(nums);i++){
+            if(map[i]==0){
+                ds.push_back(nums[i]);
+                map[i]=1;
+                fun(map,ds,nums,res);
+                ds.pop_back();
+                map[i]=0;
+            }  
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> res;
+        vector<int> ds;
+        vector<int> map(size(nums));
+        fun(map,ds,nums,res);
+        return res;
+    }
+};

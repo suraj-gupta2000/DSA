@@ -1,0 +1,36 @@
+Time: O(n^2)  Space: O(n)
+
+class MyCalendar {
+public:
+    vector<pair<int,int>> v;
+    MyCalendar() {
+        
+    }
+    
+    bool book(int s, int e) {
+        for(auto& x:v){
+            if(x.first<e and s<x.second)
+                return false;
+        }
+        v.push_back({s,e});
+        return true;
+    }
+};
+
+Time: O(n*Log n)  Space: O(n)
+
+class MyCalendar {
+public:
+    map<int,int> m;
+    MyCalendar() {
+        
+    }
+    
+    bool book(int s, int e) {
+        auto it= m.upper_bound(s);
+        if(it!=end(m) and ((*it).second<e))
+            return false;
+        m.insert({e,s});
+        return true;
+    }
+};

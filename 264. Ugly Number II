@@ -1,0 +1,60 @@
+Time: O(n^2)   Space: O(1)
+--> TLE
+
+class Solution {
+public:
+    bool isUgly(int n) {
+        if(n<=0)
+            return false;
+         while(n%2==0) n/=2;
+         while(n%3==0) n/=3;
+         while(n%5==0) n/=5;
+         if(n==1)
+                return true;
+        return false;
+        
+    }
+    int nthUglyNumber(int n) {
+        if(n<7)
+            return n;
+            int i,j;
+        for( i=7,j=8;i<=n;i++){
+            if(isUgly(j)){
+                j++;
+            }else{
+                while(1){
+                    j++;
+                    if(isUgly(j))
+                        break;
+                }
+                j++;
+            }
+        }
+        return j-1;
+    }
+};
+
+
+Time: O(n)  Space: O(n)
+
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        if(n<7)
+            return n;
+        vector<int> v(n);
+        v[0]=1;
+        int p2,p3,p5;
+        p2=p3=p5=0;
+        for(int i=1;i<n;i++){
+            v[i]=min(v[p2]*2,min(v[p3]*3,v[p5]*5));
+            if(v[i]==v[p2]*2)
+                p2++;
+            if(v[i]==v[p3]*3)
+                p3++;
+            if(v[i]==v[p5]*5)
+                p5++;
+        }
+        return v[n-1];
+    }
+};

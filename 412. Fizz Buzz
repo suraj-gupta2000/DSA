@@ -1,0 +1,66 @@
+Time: O(n)  Space: O(1)
+--> Approach 1: Brute Force
+
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) {
+        vector<string> res;
+        for(int i=1;i<=n;i++){
+            if(i%3==0 and i%5==0)
+                res.push_back("FizzBuzz");
+            else if(i%3==0)
+                res.push_back("Fizz");
+            else if(i%5==0)
+                res.push_back("Buzz");
+            else
+                res.push_back(to_string(i));
+        }
+        return res;
+    }
+};
+
+Time: O(n)  Space: O(1)
+--> Approach 2: Optimisation of Approach 1
+
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) {
+        vector<string> res;
+        for(int i=1;i<=n;i++){
+            bool d3=(i%3==0);
+            bool d5=(i%5==0);
+            string str="";
+            if(d3)
+                str+="Fizz";
+            if(d5)
+                str+="Buzz";
+            if(str=="")
+                str+=to_string(i);
+            res.push_back(str);
+        }
+        return res;
+    }
+};
+
+Time: O(n)  Space: O(k)
+--> Approach 3: Mapping
+
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) {
+        vector<string> res;
+        map<int,string> m;
+        m[3]="Fizz";m[5]="Buzz";
+        for(int i=1;i<=n;i++){
+            string str="";
+            for(auto& x: m){
+                if(i%x.first==0)
+                    str+=x.second;
+            }
+            if(str=="")
+                str+=to_string(i);
+            res.push_back(str);
+        }
+        return res;
+    }
+};

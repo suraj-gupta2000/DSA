@@ -1,0 +1,16 @@
+Time: O(Log n)  Space: O(1)
+
+class Solution {
+public:
+    int poorPigs(int buckets, int minutesToDie, int minutesToTest) {
+        if(buckets==1)
+            return 0;
+        int x=ceil(minutesToTest/minutesToDie)+1;
+        int res=1,y=x;
+        while(x<buckets){
+            res++;
+            x*=y;
+        }
+        return res;
+    }
+};

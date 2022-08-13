@@ -1,0 +1,13 @@
+Time: O(n)  Space: O(n)
+
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int t) {
+        if(root==nullptr)
+            return false;
+        if(root->val==t and root->left==nullptr and root->right==nullptr)
+            return true;
+        return hasPathSum(root->left,t-root->val) or
+               hasPathSum(root->right,t-root->val);
+    }
+};

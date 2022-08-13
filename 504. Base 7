@@ -1,0 +1,29 @@
+Time: O(Log n)  Space: O(1)
+
+class Solution {
+public:
+    string convertToBase7(int num) {
+        if(num==0)
+            return "0";
+        bool flag=false;
+        if(num<0){
+            num=-num;flag=true;
+        }
+        string res="";
+        if(flag)
+            res+='-';
+        int x=1;
+        while(x<=num){
+            x*=7;
+        }
+        x=x/7;
+        while(num or x){
+            int y=num/x;
+            res+=to_string(y);
+            if(y*x != 0)
+                num=num%(y*x);
+            x=x/7;
+        }
+        return res;
+    }
+};

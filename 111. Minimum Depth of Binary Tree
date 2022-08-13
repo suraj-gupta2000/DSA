@@ -1,0 +1,15 @@
+Time: O(n)  Space: O(n)
+
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+        if(!root)
+            return 0;
+        int d1=minDepth(root->left)+1;
+        int d2=minDepth(root->right)+1;
+        int ans=min(d1,d2);
+        if(ans>1)   // when tree is skwe tree
+            return ans;
+        return max(d1,d2);
+    }
+};

@@ -1,0 +1,16 @@
+Time: O(n)  Space: O(n)
+--> Recursive
+
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        if(p==nullptr and q==nullptr)
+            return true;
+        else if((p==nullptr and q!=nullptr) or (p!=nullptr and q==nullptr))
+            return false;
+        else if(p and q and p->val != q->val)
+            return false;
+        else
+            return isSameTree(p->left,q->left) and isSameTree(p->right,q->right);
+    }
+};

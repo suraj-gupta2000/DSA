@@ -1,0 +1,22 @@
+Time: O( (right-left) * Log k)   Space: O(1)
+
+class Solution {
+public:
+    vector<int> selfDividingNumbers(int left, int right) {
+        vector<int> res;
+        for(int i=left;i<=right;i++){
+            int x=10,y=i;
+            while(y){
+                int t=y%10;
+                if(t==0)
+                    break;
+                if(i%t != 0)
+                    break;
+                y/=10;
+            }
+            if(y==0)
+                res.push_back(i);
+        }
+        return res;
+    }
+};

@@ -1,0 +1,46 @@
+Time: O(n)  Space: O(n)
+--> Recursive
+
+class Solution{
+    public:
+    void fun(TreeNode* root,vector<int>& res){
+        if(!root)
+            return;
+        fun(root->left,res);
+        res.push_back(root->val);
+        fun(root->right,res);
+    }
+    
+    vector<int> inorderTraversal(TreeNode* root){
+        vector<int> res;
+        if(!root)
+            return res;
+        fun(root,res);
+        return res;
+    }
+};
+
+Time: O(n) Space: O(n)
+--> Iterative
+
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;
+        if(!root)
+            return res;
+        stack<TreeNode*> s;
+        TreeNode* curr = root;
+        
+        while(curr!= nullptr or s.empty()==false){
+            while(curr!=nullptr){
+                s.push(curr);
+                curr=curr->left;
+            }
+            curr=s.top(); s.pop();
+            res.push_back(curr->val);
+            curr=curr->right;
+        }
+        return res;
+    }
+};

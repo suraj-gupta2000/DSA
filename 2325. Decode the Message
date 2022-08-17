@@ -1,0 +1,22 @@
+Time: O(n)  Space: O(n)
+
+class Solution {
+public:
+    string decodeMessage(string key, string message) {
+        map<char,char> m;
+        char c='a';
+        for(auto& x: key){
+            if(x==' ') continue;
+            if(m.find(x)==m.end())
+                m[x]=c++;
+        }
+        string res="";
+        for(auto& x: message){
+            if(x==' ')
+                res+=' ';
+            else
+                res+=m[x];
+        }
+        return res;
+    }
+};

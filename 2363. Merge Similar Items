@@ -1,0 +1,59 @@
+Time: O(n*Log n)  Space: O(1)
+--> Brute Force
+
+class Solution {
+public:
+    vector<vector<int>> mergeSimilarItems(vector<vector<int>>& it1, vector<vector<int>>& it2) {
+        sort(begin(it1),end(it1));
+        sort(begin(it2),end(it2));
+        vector<vector<int>> res;
+        int n=max(size(it1),size(it2));
+        int i,j;
+        for( i=0,j=0;i<size(it1) and j<size(it2);){
+            if(it1[i][0]==it2[j][0]){
+                res.push_back({it1[i][0],it1[i][1]+it2[j][1]});
+                i++,j++;
+            }
+            else if(it1[i][0]<it2[j][0]){
+                res.push_back({it1[i][0],it1[i][1]});
+                i++;
+            }
+            else{
+                res.push_back({it2[j][0],it2[j][1]});
+                j++;
+            }
+        }
+        if(i==size(it1)){
+            while(j<size(it2)){
+                 res.push_back({it2[j][0],it2[j][1]});
+                j++;
+            }
+        }
+        if(j==size(it2)){
+            while(i<size(it1)){
+                res.push_back({it1[i][0],it1[i][1]});
+                i++;
+            }
+        }
+        return res;
+    }
+};
+
+Time: O(n)  SPace: O(n)
+--> Three Traversal
+
+class Solution {
+public:
+    vector<vector<int>> mergeSimilarItems(vector<vector<int>>& it1, vector<vector<int>>& it2) {
+        map<int,int> m;
+        for(auto& x: it1)
+            m[x[0]]+=x[1];
+        for(auto& x: it2)
+            m[x[0]]+=x[1];
+        vector<vector<int>> res;
+        for(auto& x: m){
+            res.push_back({x.first,x.second});
+        }
+        return res;
+    }
+};

@@ -1,0 +1,35 @@
+Time: O(n*Log n)  Space: O(n)
+
+class Solution {
+public:
+    vector<int> numberOfPairs(vector<int>& nums) {
+        sort(begin(nums),end(nums));
+        int n=size(nums);
+        int p=0,q=0;
+        for(int i=0;i<n;i++){
+            if(i+1<n and nums[i]==nums[i+1]){
+                p++;i++;
+                continue;
+            }
+            q++;
+        }
+        return {p,q};
+    }
+};
+
+Time: O(n)  Space: O(n)
+
+class Solution {
+public:
+    vector<int> numberOfPairs(vector<int>& nums) {
+        map<int,int> m;
+        for(auto& x: nums)
+            m[x]++;
+        int p=0,q=0;
+        for(auto& x: m){
+            p+=x.second/2;
+            q+=x.second%2;
+        }
+        return {p,q};
+    }
+};

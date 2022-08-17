@@ -1,0 +1,9 @@
+Time: O(1)  Space: O(1)
+
+class Solution {
+public:
+    bool checkTree(TreeNode* root) {
+        int sum=root->left->val+root->right->val;
+        return sum==root->val;
+    }
+};

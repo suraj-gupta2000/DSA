@@ -1,0 +1,39 @@
+Time: O(n*Log n)  Space: O(1)
+
+class Solution {
+public:
+    int minimumOperations(vector<int>& nums) {
+        sort(begin(nums),end(nums));
+        int n=size(nums);
+        if(nums[n-1]==0)
+            return 0;
+        int res=0,i=0;
+        
+        for(i;i<n;i++){
+            if(nums[n-1]<=0)
+                return res;
+             while(i<n and nums[i]==0)
+                i++;
+            int x=nums[i];
+            for(int j=i;j<n;j++)
+                nums[j]-=x;
+            res++;
+        }
+        if(nums[n-1]>0)
+            return res+1;
+        return res;
+    }
+};
+
+Time: O(n)  Space: O(n)
+
+class Solution {
+public:
+    int minimumOperations(vector<int>& nums) {
+        set<int> s;
+        for(auto& x: nums)
+            if(x!=0)
+                s.insert(x);
+        return size(s);
+    }
+};

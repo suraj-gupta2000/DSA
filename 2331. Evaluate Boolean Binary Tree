@@ -1,0 +1,21 @@
+Time: O(n)  Space: O(n)
+--> PostOrder Traversal \\DFS
+
+class Solution {
+public:
+    bool f(TreeNode* root ){
+        if(!root->left)
+            return root->val;
+        bool l=f(root->left);
+        bool r=f(root->right);
+        if(root->val==2)
+            return l or r;
+        else
+            return l and r;
+    }
+    bool evaluateTree(TreeNode* root) {
+        if(!root->left)
+            return root->val;
+       return f(root);
+    }
+};

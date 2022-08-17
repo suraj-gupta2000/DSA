@@ -1,0 +1,17 @@
+Time: O(S)  Space: O(S)
+
+class Solution {
+public:
+    int uniqueMorseRepresentations(vector<string>& words) {
+        vector<string> v{".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+        set<string> res;
+        for(auto& str: words){
+            string s="";
+            for(auto& c: str){
+                s+=v[c-'a'];
+            }
+            res.insert(s);
+        }
+        return size(res);
+    }
+};

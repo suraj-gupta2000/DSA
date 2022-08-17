@@ -1,35 +1,21 @@
-Time: O(n) Space: O(n)  using observation and DP
+Time: O(2^n)  Space: O(n)
+--> Recursion (TLE)
 
 class Solution {
 public:
     int climbStairs(int n) {
-        vector<int> dp(n+1);
-        dp[1]=1;dp[0]=1;
-        for(int i=2;i<=n;i++){
-            dp[i]=dp[i-1]+dp[i-2];
-        }
-        return dp[n];
-    }
-};
-
-
-Time: O(n)  Space: O(1)
-
-class Solution {
-public:
-    int climbStairs(int n) {
-        if(n<2)
+        if(n==1)
             return 1;
-        int a=1,b=1,c=0;
-        for(int i=2;i<=n;i++){
-            c=a+b;
-            a=b;b=c;
-        }
-        return c;
+        if(n==2)
+            return 2;
+        int left=climbStairs(n-1);
+        int right=climbStairs(n-2);
+        return left+right;
     }
 };
 
 Time: O(n)  Space: O(n)
+--> Memoization (Top-Down)
 
 class Solution {
 public:
@@ -45,3 +31,59 @@ public:
         return dp[n];
     }
 };
+
+--> Without using Global Variable
+
+class Solution {
+public:
+    int f(int n,vector<int>& dp){
+        if(n==1)
+            return 1;
+        if(n==2)
+            return 2;
+        if(dp[n]!=0)
+            return dp[n];
+        int left=f(n-1,dp);
+        int right=f(n-2,dp);
+        return dp[n]=left+right;
+    }
+    int climbStairs(int n) {
+        vector<int> dp(n+1);
+        return f(n,dp);
+    }
+};
+
+Time: O(n) Space: O(n) 
+--> Tabulation (Bottom-Up)
+
+class Solution {
+public:
+    int climbStairs(int n) {
+        vector<int> dp(n+1);
+        dp[1]=1;dp[0]=1;
+        for(int i=2;i<=n;i++){
+            dp[i]=dp[i-1]+dp[i-2];
+        }
+        return dp[n];
+    }
+};
+
+
+Time: O(n)  Space: O(1)
+--> Tabulation and Space Optimized
+
+class Solution {
+public:
+    int climbStairs(int n) {
+        if(n<2)
+            return 1;
+        int a=1,b=1,c=0;
+        for(int i=2;i<=n;i++){
+            c=a+b;
+            a=b;b=c;
+        }
+        return c;
+    }
+};
+
+

@@ -1,0 +1,17 @@
+Time: O(n)  Space: O(H)
+--> Simple Inorder Traversal
+
+class Solution {
+public:
+    bool f(TreeNode* root,int x){
+        if(root==nullptr)
+            return true;
+        if(root->val!=x)
+            return false;
+        return f(root->left,x) and f(root->right,x);
+    }
+    bool isUnivalTree(TreeNode* root) {
+        int x=root->val;
+        return f(root,x);
+    }
+};

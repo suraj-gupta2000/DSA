@@ -1,0 +1,77 @@
+Time: O(m+n)  Space: O(m+n)
+
+class Solution {
+public:
+    vector<string> uncommonFromSentences(string s1, string s2) {
+        unordered_map<string,int> m;
+        string str="";
+        for(auto& x: s1){
+            if(x==' '){
+                m[str]++;
+                str="";
+            }else
+                str+=x;
+        }
+        m[str]++;
+        str="";
+        for(auto& x: s2){
+             if(x==' '){
+                m[str]++;
+                str="";
+            }else
+                str+=x;
+        }
+        m[str]++;
+        vector<string> res;
+        for(auto& x: m){
+            if(x.second==1)
+                res.push_back(x.first);
+        }
+        return res;
+    }
+};
+
+Time: O(m+n)  Space: O(m+n)
+
+class Solution {
+public:
+    vector<string> uncommonFromSentences(string s1, string s2) {
+        unordered_map<string,int> m;
+        s1=s1+" "+s2+" ";
+        string str="";
+        for(auto& x: s1){
+            if(x==' '){
+                m[str]++;
+                str="";
+            }else
+                str+=x;
+        }
+        vector<string> res;
+        for(auto& x: m){
+            if(x.second==1)
+                res.push_back(x.first);
+        }
+        return res;
+    }
+};
+
+Time: O(m+n)  Space: O(m+n)
+
+class Solution {
+public:
+    vector<string> uncommonFromSentences(string s1, string s2) {
+        unordered_map<string,int> m;
+        s1=s1+" "+s2+" ";
+        stringstream s(s1);
+        string str;
+        while(s>>str){
+            m[str]++;
+        }
+        vector<string> res;
+        for(auto& x: m){
+            if(x.second==1)
+                res.push_back(x.first);
+        }
+        return res;
+    }
+};

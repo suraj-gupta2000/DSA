@@ -1,0 +1,37 @@
+Time: O(n)  Space: O(2*n)
+
+class Solution {
+public:
+    int findMiddleIndex(vector<int>& nums) {
+        int n=size(nums);
+        vector<int> v1(n),v2(n);
+        int s1=0,s2=0;
+        for(int i=0,j=n-1;i<n;i++,j--){
+            s1+=nums[i],s2+=nums[j];
+            v1[i]=s1;
+            v2[j]=s2;
+        }
+        for(int i=0;i<n;i++)
+            if(v1[i]==v2[i])
+                return i;
+        return -1;
+    }
+};
+
+Time: O(n)  Space: O(1)
+
+class Solution {
+public:
+    int findMiddleIndex(vector<int>& nums) {
+        int n=size(nums);
+        int sum=accumulate(begin(nums),end(nums),0);
+        int pre=0,suf=0;
+        for(int i=0;i<n;i++){
+            suf=sum-pre;
+            pre+=nums[i];
+            if(pre==suf)
+                return i;
+        }
+        return -1;
+    }
+};

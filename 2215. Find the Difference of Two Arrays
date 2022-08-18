@@ -1,0 +1,96 @@
+Time: O(n*Log n)  Space: O(n)
+
+class Solution {
+public:
+    vector<vector<int>> findDifference(vector<int>& num1, vector<int>& num2) {
+        vector<vector<int>> res;
+        vector<int> v;
+        vector<int> v1;
+        sort(num1.begin(),num1.end());
+        sort(num2.begin(),num2.end());
+        for(int i=0;i+1<num1.size();i++){
+            if( num1[i]==num1[i+1])
+                continue;
+            else{
+                
+                if(find(num2.begin(),num2.end(),num1[i])==num2.end())
+                    v.push_back(num1[i]);
+                }
+            }
+            if(find(num2.begin(),num2.end(),num1[num1.size()-1])==num2.end())
+                    v.push_back(num1[num1.size()-1]);
+        
+        res.push_back(v);
+        for(int i=0;i+1<num2.size();i++){
+            if(num2[i]==num2[i+1])
+                continue;
+            else{
+                if(find(num1.begin(),num1.end(), num2[i])==num1.end())
+                    v1.push_back(num2[i]);
+            }
+        }
+        if(find(num1.begin(),num1.end(),num2[num2.size()-1])==num1.end())
+                    v1.push_back(num2[num2.size()-1]);
+        
+        res.push_back(v1);
+        return res;
+    }
+};
+
+Time: O(n) Space: O(n+n)
+
+class Solution {
+public:
+    vector<vector<int>> findDifference(vector<int>& nums1, vector<int>& nums2) {
+        int n1=size(nums1),n2=size(nums2);
+        unordered_map<int,int> m1,m2;
+        for(auto& x: nums1)
+            m1[x]++;
+        for(auto& x: nums2)
+            m2[x]++;
+        vector<int> v1,v2;
+        for(auto& x: m1){
+            if(!m2[x.first])
+                v1.push_back(x.first);
+        }
+        for(auto& x: m2){
+            if(!m1[x.first])
+                v2.push_back(x.first);
+        }
+        return {v1,v2};
+    }
+};
+
+Time: O(n)  Space: O(n+n)
+
+class Solution {
+public:
+    vector<vector<int>> findDifference(vector<int>& nums1, vector<int>& nums2) {
+        int n1=size(nums1),n2=size(nums2);
+        vector<int> v1,v2;
+        set<int> s1(begin(nums1),end(nums1));
+        set<int> s2(begin(nums2),end(nums2));
+        for(auto& x: s1){
+            if(s2.find(x)==s2.end())
+                v1.push_back(x);
+        }
+        for(auto& x: s2)
+            if(s1.find(x)==s1.end())
+                v2.push_back(x);
+        return {v1,v2};
+    }
+};
+
+Time: O(n)  Space: O(n)
+
+class Solution {
+public:
+    vector<vector<int>> findDifference(vector<int>& nums1, vector<int>& nums2) {
+        int n1=size(nums1),n2=size(nums2);
+        vector<int> v1,v2;
+        set<int> s1(begin(nums1),end(nums1)),s2(begin(nums2),end(nums2));
+        set_difference(begin(s1),end(s1),begin(s2),end(s2),back_inserter(v1));
+        set_difference(begin(s2),end(s2),begin(s1),end(s1),back_inserter(v2));
+        return {v1,v2};
+    }
+};

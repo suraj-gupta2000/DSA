@@ -1,0 +1,62 @@
+Time: O(n^2)  Space: O(1)
+
+class Solution {
+public:
+    bool checkXMatrix(vector<vector<int>>& grid) {
+        int n=size(grid);
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(i==j and grid[i][j]==0)
+                    return false;
+                else if(i+j==n-1 and grid[i][j]==0)
+                    return false;
+                else if(i!=j and i+j!=n-1 and grid[i][j]!=0)
+                    return false;
+            }
+        }
+        return true;
+    }
+};
+
+Time: O(n^2)  Space: O(1)
+--> Optimised
+
+class Solution {
+public:
+    bool checkXMatrix(vector<vector<int>>& grid) {
+        int n=size(grid);
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if((i==j or i+j==n-1) and grid[i][j]==0)
+                    return false;
+                else if(i!=j and i+j!=n-1 and grid[i][j]!=0)
+                    return false;
+            }
+        }
+        return true;
+    }
+};
+
+Time: O(n^2)  Space: O(1)
+--> Diagonal Sum and Total Sum
+
+class Solution {
+public:
+    bool checkXMatrix(vector<vector<int>>& grid) {
+        int n=size(grid);
+        int dsum=0;
+        for(int i=0;i<n;i++){
+            if(grid[i][i]==0 or grid[i][n-1-i]==0)
+                return false;
+            dsum+=grid[i][i]+grid[i][n-1-i];
+        }
+        dsum= n&1 ? dsum-grid[n/2][n/2] : dsum ;
+        int tsum=0;
+            for(int i=0;i<n;i++){
+                for(int j=0;j<n;j++){
+                    tsum+=grid[i][j];
+                }
+            }
+        return dsum==tsum;
+    }
+};

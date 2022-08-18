@@ -1,0 +1,22 @@
+Time: O(n)  Space: O(n)
+
+class Solution {
+public:
+    int minSetSize(vector<int>& arr) {
+        unordered_map<int,int> m;
+        for(auto& x: arr)
+            m[x]++;
+        multimap<int,int> mp;
+        for(auto& x: m)
+            mp.insert({x.second,x.first});
+        int n=size(arr);
+        int res=0,sum=0;
+        map<int,int>::reverse_iterator it;
+        for(it=mp.rbegin();it!=mp.rend();it++){
+            sum+=it->first;res++;
+            if(sum>=n/2)
+                return res;
+        }
+        return res;
+    }
+};

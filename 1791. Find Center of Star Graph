@@ -1,0 +1,51 @@
+Time: O(n)  Space: O(N)
+
+class Solution {
+public:
+    int findCenter(vector<vector<int>>& edges) {
+        unordered_map<int,int> m;
+        for(vector<int> x: edges){
+            m[x[0]]++;
+            m[x[1]]++;
+        }
+        int res=-1,val=INT_MIN;
+        for(pair<int,int> x: m){
+            if(x.second>val){
+                res=x.first;
+                val=x.second;
+            }
+        }
+        return res;
+    }
+};
+
+Time: O(1)  Space: O(n)
+
+class Solution {
+public:
+    int findCenter(vector<vector<int>>& edges) {
+        unordered_map<int,int> m;
+        for(vector<int> x: edges){
+            m[x[0]]++;
+            m[x[1]]++;
+            if(m[x[0]]>1)
+                return x[0];
+            else if(m[x[1]]>1)
+                return x[1];
+        }
+        return -1;
+    }
+};
+
+Time: O(1)  Space: O(1)
+
+class Solution {
+public:
+    int findCenter(vector<vector<int>>& edges) {
+        if(edges[0][0]==edges[1][0] || edges[0][0]==edges[1][1])
+            return edges[0][0];
+        else
+            return edges[0][1];
+        return -1;
+    }
+};

@@ -1,0 +1,27 @@
+Time: O(n)  Space: O(1)
+--> Two Traversal 
+
+class Solution
+{
+public:
+    vector<pair<int, int>> findPairsWithGivenSum(Node *head, int target)
+    {
+        Node* l=head;
+        while(l->next){
+            l=l->next;
+        }
+        Node* s=head;
+        vector<pair<int,int>> ans;
+        while(s and l and s!=l and s->data<=l->data){
+           int x=s->data+l->data;  //cout<<x<<" ";
+           if(x==target) {
+               ans.push_back({s->data,l->data}) ;
+               s=s->next;l=l->prev;
+        }else if(x>target){
+            l=l->prev;
+        }else
+           s=s->next;
+        }
+        return ans;
+    }
+};

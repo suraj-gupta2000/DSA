@@ -1,0 +1,19 @@
+Time: O(N)  Space: O(n)
+
+class Solution {
+public:
+    void preorder(TreeNode* root,int& ans,int x){
+        if(!root)
+            return;
+        if(root->val>=x){
+            ans++,x=root->val;
+        }
+        preorder(root->left,ans,x);
+        preorder(root->right,ans,x);
+    }
+    int goodNodes(TreeNode* root) {
+        int ans=0;
+        preorder(root,ans,INT_MIN);
+        return ans;
+    }
+};

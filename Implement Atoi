@@ -1,0 +1,21 @@
+Time: O(n)  Space: O(n)
+
+class Solution{
+  public:
+    /*You are required to complete this method */
+    int solve(string& s,int i,int n,int res){
+        if(i==n) return res;
+        if(isdigit(s[i]) )
+        return solve(s,i+1,n,res*10+(s[i]-'0'));
+        return -1;
+    }
+    int atoi(string str) {
+        int n=str.size();
+        if(str[0]=='-'){
+            int ans=solve(str,1,n,0);
+            if(ans== -1) return -1;
+            return -ans;
+        }
+         return solve(str,0,n,0);
+    }
+};

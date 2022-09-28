@@ -1,0 +1,176 @@
+121. Best Time to Buy and Sell Stock
+
+TC: O(n)  SC: O(1)
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        int mini=prices[0],maxprofit=0;
+        for(int i=1;i<n;i++){
+            int cost=prices[i]-mini;
+            maxprofit=max(cost,maxprofit);
+            mini=min(prices[i],mini);
+        }
+        return maxprofit;
+    }
+};
+
+122. Best Time to Buy and Sell Stock II
+
+--> Memoiation
+class Solution {
+public:
+    int f(int ind,int buy,int n,vector<int>& prices,vector<vector<int>> &dp){
+        if(ind==n) return 0;
+        if(dp[ind][buy]!=-1) return dp[ind][buy];
+        if(buy){
+            return dp[ind][buy]= max(-prices[ind]+f(ind+1,0,n,prices,dp),
+                      f(ind+1,1,n,prices,dp));
+        }else{
+            return dp[ind][buy]= max(prices[ind]+f(ind+1,1,n,prices,dp),
+                      f(ind+1,0,n,prices,dp));
+        }
+    }
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        vector<vector<int>> dp(n,vector<int> (2,-1));
+        return f(0,1,n,prices,dp);
+    }
+};
+
+-->Tabulation
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        vector<vector<int>> dp(n+1,vector<int> (2,0));
+        dp[n][0]=dp[n][1]=0;
+        for(int ind=n-1;ind>=0;ind--){
+            for(int buy=0;buy<=1;buy++){
+                long profit=0;
+                if(buy){
+                    profit=max(-prices[ind]+dp[ind+1][0],
+                                    dp[ind+1][1]);
+                }else{
+                    profit=max(prices[ind]+dp[ind+1][1],
+                                    dp[ind+1][0]);
+                }
+                dp[ind][buy]=profit;
+            }
+        }
+        return dp[0][1];
+    }
+};
+
+123. Best Time to Buy and Sell Stock III
+
+-->Memoiation
+class Solution {
+public:
+    int f(int ind,int buy,int cap,int n,vector<int>& prices,vector<vector<vector<int>>>& dp){
+        if(ind==n || cap==0) return 0;
+        if(dp[ind][buy][cap]!=-1) return dp[ind][buy][cap];
+        if(buy){
+            return dp[ind][buy][cap]=max(-prices[ind]+f(ind+1,0,cap,n,prices,dp),
+                                        f(ind+1,1,cap,n,prices,dp));
+        }else{
+            return dp[ind][buy][cap]=max(prices[ind]+f(ind+1,1,cap-1,n,prices,dp),
+                                        f(ind+1,0,cap,n,prices,dp));
+        }
+    }
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        vector<vector<vector<int>>> dp(n,vector<vector<int>> (2,vector<int> (3,-1)));
+        return f(0,1,2,n,prices,dp);
+    }
+};
+
+--> Tabulation
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        vector<vector<vector<int>>> dp(n+1,vector<vector<int>> (2,vector<int> (3,0)));
+        for(int ind=n-1;ind>=0;ind--){
+            for(int buy=0;buy<=1;buy++){
+                for(int cap=1;cap<=2;cap++){
+                    if(buy)
+                    dp[ind][buy][cap]=max(-prices[ind]+dp[ind+1][0][cap],
+                                          dp[ind+1][1][cap]);
+                    else
+                        dp[ind][buy][cap]=max(prices[ind]+dp[ind+1][1][cap-1],
+                                             dp[ind+1][0][cap]);
+                }
+            }
+        }
+        return dp[0][1][2];
+    }
+};
+
+188. Best Time to Buy and Sell Stock IV
+-->Memoiation 
+class Solution {
+public:
+    int f(int ind,int buy,int cap,int n,vector<int>& prices,
+          vector<vector<vector<int>>>& dp){
+        if(ind == n || cap==0) return 0;
+        if(dp[ind][buy][cap]!=-1) return dp[ind][buy][cap];
+        if(buy){
+            return dp[ind][buy][cap]=max(-prices[ind]+f(ind+1,0,cap,n,prices,dp),
+                                        f(ind+1,1,cap,n,prices,dp));
+        }else
+            return dp[ind][buy][cap]=max(prices[ind]+f(ind+1,1,cap-1,n,prices,dp),
+                                        f(ind+1,0,cap,n,prices,dp));
+    }
+    int maxProfit(int k, vector<int>& prices) {
+        int n=prices.size();
+        vector<vector<vector<int>>> dp(n,vector<vector<int>> (2,vector<int> (k+1,-1)));
+        return f(0,1,k,n,prices,dp);
+    }
+};
+
+309. Best Time to Buy and Sell Stock with Cooldown
+
+-->Memoiation
+class Solution {
+public:
+    int f(int ind,int buy,int n,vector<int> &prices,vector<vector<int>> &dp){
+        if(ind>=n) return 0;
+        if(dp[ind][buy]!=-1) return dp[ind][buy];
+        if(buy){
+            return dp[ind][buy]=max(-prices[ind]+f(ind+1,0,n,prices,dp),
+                                   f(ind+1,1,n,prices,dp));
+        }else{
+            return dp[ind][buy]=max(prices[ind]+f(ind+2,1,n,prices,dp),
+                                   f(ind+1,0,n,prices,dp));
+        }
+    }
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        vector<vector<int>> dp(n,vector<int> (2,-1));
+        return f(0,1,n,prices,dp);
+    }
+};
+
+714. Best Time to Buy and Sell Stock with Transaction Fee
+
+-->Memoiation
+class Solution {
+public:
+    int f(int ind,int buy,int fee,int n,vector<int> &prices,vector<vector<int>> &dp){
+        if(ind==n) return 0;
+        if(dp[ind][buy]!=-1) return dp[ind][buy];
+        if(buy){
+            return dp[ind][buy]=max(-prices[ind]+f(ind+1,0,fee,n,prices,dp),
+                                   f(ind+1,1,fee,n,prices,dp));
+        }else{
+            return dp[ind][buy]=max(prices[ind]-fee+f(ind+1,1,fee,n,prices,dp),
+                                   f(ind+1,0,fee,n,prices,dp));
+        }
+    }
+    int maxProfit(vector<int>& prices, int fee) {
+        int n=prices.size();
+        vector<vector<int>> dp(n,vector<int> (2,-1));
+        return f(0,1,fee,n,prices,dp);
+    }
+};
